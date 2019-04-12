@@ -11,7 +11,7 @@ use App\Day;
 class CorralService 
 {
     const MaxCorrals = 4;
-    const Sheeps = 10;
+    const Sheeps = 6;
 
     public static function isCorralsEmpty($id)
     {
@@ -22,10 +22,11 @@ class CorralService
             return false;
             // В конце на false;
         } else {
+            $user->day = 1;
+            $user->save();
             for ($i = 1; $i <= self::MaxCorrals - $count; $i++) {
                 $user->corrals()->create();
-                $user->day = 1;
-                $user->save();
+                
             }
             return true;
         } 
@@ -52,6 +53,18 @@ class CorralService
                 $numberCorral = mt_rand(0, 3);
                 $user->corrals[$numberCorral]->sheeps()->create();
             }
+
+            for ($i = 0; $i <= 3; $i++) {
+                $user->corrals[$i]->sheeps()->create();
+            }
+
+            $corrals = Corral::where('user_id', $user->id)->get();
+
+            $minCorral = $corrals->sortBy('count_sheeps')->first();
+             
+            $maxCorral = $corrals->sortByDesc('count_sheeps')->first();
+
+            self::nextDay($user->id, 1, 10, 0, 10, $maxCorral->id, $minCorral->id);
         }
             
         self::isCorralEmpty($user);
@@ -110,7 +123,7 @@ class CorralService
              
             $maxCorral = $corrals->sortByDesc('count_sheeps')->first();
 
-            self::nextDay($user->id, $user->day, $user->sheeps_count, $dead, $alive, $maxCorral->id, $minCorral->id);
+            self::nextDay($user->id, $user->day, $user->sheeps_count + 1, $dead, $alive + 1, $maxCorral->id, $minCorral->id);
 
         }
     }

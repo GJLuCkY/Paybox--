@@ -11,8 +11,8 @@
                   </div>
               </div>
           </div>
+          <button @click="reset()" style="margin-top: 20px">Reset</button>   
       </div>
-      <button @click="reset()">Reset</button>   
     </div>
     <div class="card-header">Отчет по дням</div>
     <div class="card-body">

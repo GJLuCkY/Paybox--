@@ -49359,20 +49359,21 @@ var render = function() {
             ])
           }),
           0
-        )
-      ]),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          on: {
-            click: function($event) {
-              return _vm.reset()
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticStyle: { "margin-top": "20px" },
+            on: {
+              click: function($event) {
+                return _vm.reset()
+              }
             }
-          }
-        },
-        [_vm._v("Reset")]
-      )
+          },
+          [_vm._v("Reset")]
+        )
+      ])
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "card-header" }, [_vm._v("Отчет по дням")]),
